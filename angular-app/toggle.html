@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="angular.js"></script>
+</head>
+
+<style>
+    .divider {
+        height: 500px;
+        width: 500px;
+        border: 1px solid;
+        text-align: center
+    }
+</style>
+<script>
+
+    var btnclick;
+    angular.module('modStudent', [])
+        .controller('controllerStudent', function ($scope, $rootScope, $timeout) {
+            console.log($scope);
+            console.log($rootScope);
+            $scope.myvar = false;
+            $scope.toggle = function () {
+                $scope.myvar = !$scope.myvar;
+                if ($scope.myvar == true)
+                    $scope.btnclick();
+                    
+                $scope.btnclick = function () {
+                }
+                $scope.students = [{
+                    id: 1,
+                    name: "abhishek",
+                    image: "a.jpg",
+                    cgpa: 7.56
+                },
+                {
+                    id: 2,
+                    name: "deepak",
+                    image: "b.jpg",
+                    cgpa: 8.86
+                },
+                {
+                    id: 3,
+                    name: "yogita",
+                    image: "a.jpg",
+                    cgpa: 9.86
+                },
+                {
+                    id: 4,
+                    name: "onkar",
+                    image: "b.jpg",
+                    cgpa: 8.56
+                },
+                {
+                    id: 5,
+                    name: "shekhar",
+                    image: "a.jpg",
+                    cgpa: 9.86
+                }]
+            }
+        });
+
+
+
+</script>
+
+<body ng-app="modStudent">
+
+    <center>
+        <div divider ng-controller="controllerStudent">
+            <div align="center"> <button type="button" ng-click="toggle()" class="btn btn-success">Load</button>
+            </div>
+            <div ng-show="myvar">
+                <div ng-repeat="x in students">
+                    ID:{{x.id}}<br>
+                    NAME:{{x.name}} <br>
+                    CGPA:{{x.cgpa}} <br>
+                    <img ng-src="{{ x.image }}" alt="">
+                </div>
+            </div>
+    </center>
+
+    </div>
+</body>
+
+</html>

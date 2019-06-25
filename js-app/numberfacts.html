@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .factViewer {
+        text-align: left;
+        display: block;
+        height: 100px;
+        width: 450px;
+        border: 1px solid;
+    }
+</style>
+
+<body>
+    <div id="firstdiv" align="center">
+        <h2>Number Facts</h2>
+        <div id="seconddiv" align="center">
+            Enter Number&nbsp;<input type="number" id="numinputs"><br><br>&nbsp;<button id="factbtn">Get
+                Facts</button><br>
+            <div id="thirddiv" class="factViewer">
+                <p id="factdata"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+
+    var num
+    document.querySelector("#factbtn").addEventListener("click", function () {
+        num = document.querySelector("#numinputs").value;
+        console.log(num);
+        getFact(num)
+            .then(function (r) {
+                document.querySelector("#factdata").innerHTML = r;
+            })
+            .catch(function (e) {
+                document.querySelector("#factdata").innerHTML = e;
+            })
+    })
+
+    function getFact(num) {
+        return new Promise(function (resolve, reject) {
+            if (num) {
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                }
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        resolve(xmlhttp.responseText);
+                    }
+                    else { 
+                        (reject( 'invalid number' );
+                     }
+                }
+                xmlhttp.open("GET", "http://numbersapi.com/" + num);
+                xmlhttp.send();
+            }
+            else {
+                reject('invalid number');
+            }
+        })
+    }
+
+    /*function getFact(num) {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                console.log(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", "http://numbersapi.com/"+num);
+        xmlhttp.send();
+    }*/
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,59 @@
+.taskbtn {
+    background-color: darkviolet;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.completebtn {
+    background-color: green;
+    text-align: center;
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    margin: 1px;
+    cursor: pointer;
+}
+
+.deletebtn {
+    background-color: red;
+    text-align: center;
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    margin: 1px;
+    cursor: pointer;
+}
+
+.maindiv {
+    text-align: center;
+    display: block;
+}
+
+.startdiv {
+    text-align: center;
+    display: block;
+}
+
+.radiodiv {
+    text-align: center;
+    display: block;
+}
+
+.displaydiv {
+    text-align: center;
+    display: block;
+    height: 400px;
+    width: 1200px;
+}
+
+.datadiv {
+    text-align: left;
+    display: block;
+    padding-left: 10%;
+    padding-right: 10%;
+
+}

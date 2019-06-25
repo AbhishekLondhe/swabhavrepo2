@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html >
+<style>
+.btn{
+    text-align: center;
+}
+.wrapper{
+    text-align: center
+}
+
+</style>
+
+
+<body>
+<div>
+    <h1>Stopwatch</h1>
+    <h1 id=timerlabel>00:00:00</h1>
+    <input type="button" value="start" class="btn" onclick="start()" id="startbtn">
+    <input type="button" value="pause" class="btn" onclick="pause()" id="pausebtn">
+    <input type="button" value="reset" class="btn" onclick="reset()" id="rstbtn">
+</div>
+</body>
+
+<script>
+var status=0;
+var time=0;
+function start(){
+status =1;
+document.getElementById("startbtn").disabled=true;
+timer();
+
+}
+
+function pause(){
+status=0;
+document.getElementById("startbtn").disabled=false;
+}
+
+function reset(){
+status=0;
+time=0;
+document.getElementById("startbtn").disabled=false;
+document.getElementById("timerlabel").innerHTML="00:00:00";
+}
+
+function timer(){
+    if(status==1){
+        setTimeout(function(){
+            time++;
+            var min=Math.floor(time/100/60);
+            var sec=Math.floor(time/100);
+            var mSec=time%100;
+            if(min<10){
+                min="0"+min;
+            }
+            if(sec>=60){
+                sec=sec%60;
+            }
+            if(sec<10){
+                sec="0"+sec;
+            }
+            document.getElementById("timerlabel").innerHTML=min+":"+sec+":"+mSec;
+            timer();
+        },10)
+}
+}
+</script>
+</html>

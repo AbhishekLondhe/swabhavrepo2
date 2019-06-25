@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script>
+
+        var task = {};
+        var taskjson = []
+        var currentTime = new Date();
+        task.taskjson = taskjson;
+        console.log(task);
+
+        var id = 1;
+        var taskdescrip = "abhi";
+        var priority = "londhe";
+        var time = currentTime;
+        var sampletask = {
+            "id": id,
+            "taskdescrip": taskdescrip,
+            "priority": priority,
+            "time": time
+        }
+        
+        var id = 2;
+        var taskdescrip = "abhishek";
+        var priority = "londhe";
+        var time = currentTime;
+        var sampletask2 = {
+            "id": id,
+            "taskdescrip": taskdescrip,
+            "priority": priority,
+            "time": time
+        }
+
+
+
+        task.taskjson.push(sampletask);
+        console.log(task);
+        console.log(JSON.stringify(task));
+        
+        task.taskjson.push(sampletask2);
+        console.log(task);
+        console.log(JSON.stringify(task));
+        /*
+var sitePersonel = {};
+var employees = []
+sitePersonel.employees = employees;
+console.log(sitePersonel);
+
+var firstName = "John";
+var lastName = "Smith";
+var employee = {
+  "firstName": firstName,
+  "lastName": lastName
+}
+sitePersonel.employees.push(employee);
+console.log(sitePersonel);
+
+var manager = "Jane Doe";
+sitePersonel.employees[0].manager = manager;
+console.log(sitePersonel);
+
+console.log(JSON.stringify(sitePersonel));*/
+
+
+    </script>
+</body>
+
+</html>

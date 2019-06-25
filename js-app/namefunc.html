@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script>
+        function Employee(firstname,lastname){
+            this.firstname=function(){
+                console.log(firstname);
+            }
+            this.lastname=function(){
+                console.log(lastname);
+            }
+            this.display=function(){
+                //var that=this;
+                setTimeout(function(){
+                    console.log(this);
+                    console.log(this.firstname);
+                    console.log(this.lastname);
+                },2000);
+            }
+        }
+
+        var e1=new Employee("abc","xyz");
+        e1.display();
+    </script>
+</body>
+
+</html>

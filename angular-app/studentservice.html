@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="angular.js"> </script>
+</head>
+<script>
+
+    angular.module('modStudent', [])
+        .factory('studentService', ['$http', '$q', function ($http, $q) {
+            let obj = {};
+
+            obj.getStudentList = function () {
+                return $q((resolve, reject) => {
+                    $http({
+                        method: "GET",
+                        url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/",
+                    }).then(function (response) {
+                        resolve(response.data);
+                    }, function (response) {
+                        reject(response.statusText);
+                    })
+                })
+            }
+
+            obj.getStudentById = function (id) {
+                return $q((resolve, reject) => {
+                    $http({
+                        method: "GET",
+                        url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + id,
+                    }).then(function (response) {
+                        resolve(response.data);
+                    }, function (response) {
+                        reject(response.statusText);
+                    })
+                })
+            }
+
+
+            obj.addStudent = function (studentDTO) {
+                return $q((resolve, reject) => {
+                    $http({
+                        method: "POST",
+                        url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/",
+                        data: studentDTO
+                    }).then(function (response) {
+                        resolve(response.data);
+                    }, function (response) {
+                        reject(response.statusText);
+                    })
+                })
+            }
+
+
+            obj.updateStudent = function (id, studentDTO) {
+                return $q((resolve, reject) => {
+                    $http({
+                        method: "PUT",
+                        url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + id,
+                        data: studentDTO
+                    }).then(function (response) {
+                        resolve(response.data);
+                    }, function (response) {
+                        reject(response.statusText);
+                    })
+                })
+            }
+
+            obj.deleteStudentById = function (id) {
+                return $q((resolve, reject) => {
+                    $http({
+                        method: "DELETE",
+                        url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + id,
+                    }).then(function (response) {
+                        resolve(response.data);
+                    }, function (response) {
+                        reject(response.statusText);
+                    })
+                })
+            }
+
+            return obj;
+        }])
+        .controller('studentController', ['$scope', 'studentService', function ($scope, studentService) {
+            $scope.studentList;
+            $scope.fetchIDToUpate;
+
+            $scope.resetForm = function () {
+                $scope.myform.$setPristine();
+                $scope.name = '';
+                $scope.rollNo = '';
+                $scope.age = '';
+                $scope.date = '';
+                $scope.email = '';
+                $scope.gender = '';
+            }
+
+            let refreshData=function(){
+                studentService.getStudentList()
+                .then((result) => {
+                    $scope.studentList = result;
+                })
+
+
+            }
+            refreshData();
+            $scope.getbyIdClick = function (id) {
+                console.log(id);
+                $scope.fetchIDToUpate = id;
+                studentService.getStudentById(id)
+                    .then((result) => {
+                        studentInfo = result;
+                        $scope.rollNo = studentInfo[0].rollNo,
+                            $scope.name = studentInfo[0].name,
+                            $scope.email = studentInfo[0].email,
+                            $scope.date = studentInfo[0].date,
+                            $scope.age = studentInfo[0].age,
+                            $scope.gender = studentInfo[0].isMale
+                    })
+
+
+            }
+
+
+            $scope.addData = function () {
+                let studentDTO = {
+                    "rollNo": $scope.rollNo,
+                    "name": $scope.name,
+                    "email": $scope.email,
+                    "date": $scope.date,
+                    "age": $scope.age,
+                    "isMale": $scope.gender
+                }
+                studentService.addStudent(studentDTO)
+                    .then((result) => {
+                    })
+                $scope.resetForm();
+                refreshData();
+                //$scope.reloadRoute();
+            }
+
+
+            $scope.updateData = function () {
+                let studentDTO = {
+                    "rollNo": $scope.rollNo,
+                    "name": $scope.name,
+                    "email": $scope.email,
+                    "date": $scope.date,
+                    "age": $scope.age,
+                    "isMale": $scope.gender
+                }
+                studentService.updateStudent($scope.fetchIDToUpate, studentDTO)
+                    .then((result) => {
+                    })
+                $scope.resetForm();
+                refreshData();
+                //$scope.reloadRoute();
+
+            }
+
+            $scope.deleteClick = function (id) {
+                console.log(id);
+                studentService.deleteStudentById(id)
+                    .then((result) => {
+                        $scope.studentInfo = result;
+                    })
+                    refreshData();
+            }
+
+
+            
+
+        }])
+        .filter('genderFilter', [function () {
+            return function (isMale) {
+                if (isMale == true) {
+                    return "Male";
+                }
+                else {
+                    return "Female";
+                }
+            }
+        }])
+
+
+
+</script>
+
+<body ng-app="modStudent">
+
+    <div ng-controller='studentController'>
+        <div align="center"><br> Total No of Students<span class="badge">{{studentList.length}}</span></div>
+        <div>
+            <h1 align="center">Student Service</h1>
+        </div>
+
+        <div>
+            <form class="form-inline" name="myform">
+                <div align="center"><br>
+                    <p>Roll no:<input id="roll_noid" type="text" class="form-control" placeholder="Enter roll no"
+                            ng-model="rollNo" name="rollNo" required>
+                        <span style="color:red" ng-show="myform.rollNo.$dirty && myform.rollNo.$invalid">
+                            <span ng-show="myform.rollNo.$error.required">rollNo is required.</span>
+                        </span></p>
+
+                    <p>Name: <input id="nameid" type="text" class="form-control" placeholder="Enter name" name="name"
+                            ng-model="name" required>
+                        <span style="color:red" ng-show="myform.name.$dirty && myform.name.$invalid">
+                            <span ng-show="myform.name.$error.required">name is required.</span>
+                        </span></p>
+
+
+                    <p>Email:<input id="emailid" type="text" class="form-control" placeholder="Enter email"
+                            ng-model="email" name="email" required>
+                        <span style="color:red" ng-show="myform.email.$dirty && myform.email.$invalid">
+                            <span ng-show="myform.email.$error.required">Email is required.</span>
+                            <span ng-show="myform.email.$error.email">Invalid email address.</span>
+                        </span></p>
+
+                    <p>Date: <input id="dateid" type="text" class="form-control" ng-model="date" name="date"
+                            placeholder="Enter date" required>
+                        <span style="color:red" ng-show="myform.date.$dirty && myform.date.$invalid">
+                            <span ng-show="myform.date.$error.required">date is required.</span>
+                        </span></p>
+
+                    <p>Age: <input id="ageid" type="number" min=1 max=100 class="form-control" style=width:100px
+                            ng-model="age" name="age" required>
+                        <span style="color:red" ng-show="myform.age.$dirty && myform.age.$invalid">
+                            <span ng-show="myform.age.$error.required">age is required.</span>
+                        </span></p>
+
+                    <p> Gender: <input type="radio" class="radiobtn" id="male" name="gender" value="male"
+                            ng-model="gender" ng-value="true" required><span id="option1">male</span>
+                        <input type="radio" class="radiobtn" id="female" name="gender" value="female" ng-model="gender"
+                            ng-value="false" required><span id="option2">female</span>
+                        <span style="color:red" ng-show="myform.gender.$dirty && myform.gender.$invalid">
+                            <span ng-show="myform.gender.$error.required">gender is required.</span>
+                        </span></p>
+
+                    <button class="btn btn-success" id="addbtn"
+                        ng-disabled="myform.name.$invalid || myform.rollNo.$invalid || myform.email.$invalid || myform.age.$invalid || myform.gender.$invalid || myform.date.$invalid"
+                        ng-click="addData()">Add</button>&nbsp;
+                    <button class="btn btn-info" id="updatebtn" ng-click="updateData()"
+                        ng-disabled="myform.name.$invalid || myform.rollNo.$invalid || myform.email.$invalid || myform.age.$invalid || myform.gender.$invalid || myform.date.$invalid">Update</button><br>
+                </div>
+            </form>
+
+        </div>
+        <center>
+            <div style="height: 500px;width:1200px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ROLL NO</th>
+                            <th>NAME</th>
+                            <th>EMAIL</th>
+                            <th>AGE</th>
+                            <th>DATE</th>
+                            <th>GENDER</th>
+                            <th>UPDATE</th>
+                            <th>DELETE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='student in studentList '>
+                            <td>{{student.id}}</td>
+                            <td>{{student.rollNo}}</td>
+                            <td>{{student.name}}</td>
+                            <td>{{student.email}}</td>
+                            <td>{{student.age}}</td>
+                            <td>{{student.date}}</td>
+                            <td>{{student.isMale | genderFilter}}</td>
+                            <td><button class=" btn btn-warning glyphicon glyphicon-pencil"
+                                    ng-click="getbyIdClick(student.id)"></button></td>
+                            <td><button class=" btn btn-danger glyphicon glyphicon-trash"
+                                    ng-click="deleteClick(student.id)"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </center>
+    </div>
+</body>
+
+</html>

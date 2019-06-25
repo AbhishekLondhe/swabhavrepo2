@@ -1,0 +1,34 @@
+<center>
+    <div>
+        <h3><strong>Employee List</strong></h3>
+    </div>
+    Total No of Employees=<div class="badge">{{employeeList.length}}</div>
+    <div style="height: 500px;width:1200px;" class="table-responsive">
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>SALARY</th>
+                    <th>DATE OF JOINING</th>
+                    <th>DESIGNATION</th>
+                    <th>UPDATE</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat=' emp in employeeList'>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.salary}}</td>
+                    <td>{{emp.doj}}</td>
+                    <td>{{emp.designation}}</td>
+                    <td><a href="#!/edit{{$index}}"><button class=" btn btn-warning glyphicon glyphicon-pencil"
+                                ng-disabled="logout">
+                            </button></a></td>
+                    <td><button class=" btn btn-danger glyphicon glyphicon-trash" ng-disabled="logout"
+                            ng-click="deleteClicked($index)">
+                        </button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</center>

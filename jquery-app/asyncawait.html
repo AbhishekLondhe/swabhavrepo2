@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+</head>
+<script>
+function cubeEvenNo(num){
+    return new Promise((resolve,reject)=>{
+        if(num%2==0){
+            resolve(num*num*num);
+        }
+        else{
+            reject("invalid number");
+        }
+    })
+}
+
+async function testCubeFunctionNo(){
+    let resp1=await cubeEvenNo(2);
+    console.log(resp1);
+    let resp2=await cubeEvenNo(resp1);
+    console.log(resp2);
+}
+
+testCubeFunctionNo();
+console.log("end of script");
+
+</script>
+<body>
+    
+</body>
+</html>

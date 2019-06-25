@@ -1,0 +1,40 @@
+<div align="center"><h3><strong>Edit Employee Details</strong></h3></div>
+
+<form class="form-inline" name="myform">
+        <div align="center"><br>
+    
+            <p>Name: <input id="nameid" type="text" class="form-control" placeholder="Enter name" name="name"
+                    ng-model="name" required>
+                <span style="color:red" ng-show="myform.name.$dirty && myform.name.$invalid">
+                    <span ng-show="myform.name.$error.required">name is required.</span>
+                </span></p>
+    
+    
+            <p>Salary:<input id="salaryid" type="text" class="form-control" placeholder="Enter Salary" ng-model="salary"
+                    name="salary" required>
+                <span style="color:red" ng-show="myform.salary.$dirty && myform.salary.$invalid">
+                    <span ng-show="myform.salary.$error.required">Salary is required.</span>
+                </span></p>
+    
+            <p>Date of Joining: <input id="dojid" type="text" class="form-control" ng-model="doj" name="doj"
+                    placeholder="Enter date" required>
+                <span style="color:red" ng-show="myform.doj.$dirty && myform.doj.$invalid">
+                    <span ng-show="myform.doj.$error.required">date is required.</span>
+                </span></p>
+    
+                <p>Designation: <select ng-model="designation" name="designation" required>
+                        <option value="Analyst" >Analyst</option>
+                        <option   value="Developer">Developer</option>
+                        <option   value="Tester">Tester</option>
+                        <span style="color:red" ng-show="myform.designation.$dirty && myform.designation.$invalid">
+                                <span ng-show="myform.designation.$error.required">Designation is required</span>
+                            </span></p>
+                    </select><br><br>
+        
+        <br><br>
+        
+            <button class="btn btn-success" id="updatebtn"
+                ng-disabled="myform.name.$invalid || myform.salary.$invalid || myform.designation.$invalid || myform.doj.$invalid " ng-click="updateEmployee()">
+                Update</button>&nbsp;
+        </div>
+    </form>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<style>
+    .jumbotron {
+        background-color: aqua !important;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+    }
+</style>
+<script>
+    angular.module('Main', [])
+        .directive('aurionproHeader', function () {
+            function headerFunction($scope, element, attributes) {
+                $scope.companyName = "Aurionpro Solutions";
+            }
+
+            return {
+                link: headerFunction,
+                template: '<header><div align="center" class="jumbotron"><h1>{{companyName}} </h1></div></header>',
+                restrict: 'E'
+            };
+        })
+
+
+        .directive('aurionproFooter', function () {
+            function footerFunction($scope, element, attributes) {
+                $scope.companyFooter = "Copyright 2019 Aurionpro Solutions Limited";
+            }
+
+            return {
+                link: footerFunction,
+                template: '<footer><div class="footer">{{companyFooter}} </div></footer>',
+                restrict: 'E'
+            };
+        })
+
+        .controller('directiveController', ['$scope', function ($scope) {
+
+        }])
+</script>
+
+
+<body ng-app='Main'>
+    <div ng-controller="directiveController">
+        <div class="container">
+            <aurionpro-header></aurionpro-header>
+                <aurionpro-Footer></aurionpro-Footer>
+        </div>
+    </div>
+</body>
+
+</html>

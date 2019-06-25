@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<script>
+    angular.module('Main', [])
+        .directive('studentTable', function () {
+            function tableFuntion($scope, element, attributes) {
+                $scope.text="Student Service";
+            }
+
+            return {
+                link: tableFunction,
+                template: '<header><div align="center" class="jumbotron"><h1>{{companyName}} </h1></div></header>',
+                restrict: 'E'
+            };
+        })
+
+        .factory('studentService', ['$http', '$q', function ($http, $q) {
+            let obj = {};
+
+            obj.getStudentList = function () {
+                return $q((resolve, reject) => {
+                    $http({
+                        method: "GET",
+                        url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/",
+                    }).then(function (response) {
+                        resolve(response.data);
+                    }, function (response) {
+                        reject(response.statusText);
+                    })
+                })
+            }
+        }])
+
+
+        .controller('studentController', ['$scope', 'studentService', function ($scope, studentService) {
+            studentService.getStudentList()
+                .then((result) => {
+                    $scope.studentList = result;
+                })
+        }])
+</script>
+
+<body>
+<center>
+            <div style="height: 500px;width:1200px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ROLL NO</th>
+                            <th>NAME</th>
+                            <th>EMAIL</th>
+                            <th>AGE</th>
+                            <th>DATE</th>
+                            <th>GENDER</th>
+                            <th>UPDATE</th>
+                            <th>DELETE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='student in studentList '>
+                            <td>{{student.id}}</td>
+                            <td>{{student.rollNo}}</td>
+                            <td>{{student.name}}</td>
+                            <td>{{student.email}}</td>
+                            <td>{{student.age}}</td>
+                            <td>{{student.date}}</td>
+                            <td>{{student.isMale | genderFilter}}</td>
+                            <td><button class=" btn btn-warning glyphicon glyphicon-pencil"
+                                    ng-click="getbyIdClick(student.id)"></button></td>
+                            <td><button class=" btn btn-danger glyphicon glyphicon-trash"
+                                    ng-click="deleteClick(student.id)"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </center>
+</body>
+
+</html>

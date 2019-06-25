@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <p>event for one button and two listeners</p>
+    <button id="btn">Source</button>
+</body>
+
+<script>
+    (function () {
+        let ele = document.querySelector("#btn");
+        ele.addEventListener("click", listener1);
+        ele.addEventListener("click", listener2);
+        function listener1() {
+            console.log(" listener 1 here");
+            alert("listener 1");
+        }
+        function listener2() {
+            console.log(" listener 2 here");
+            alert("listener 2");
+        }
+    })();
+</script>
+
+</html>

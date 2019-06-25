@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+
+            var f1=()=>{
+                console.log("inside arrow");
+                return "hello";
+            }
+            f1();
+            setTimeout(() => {
+                console.log("inside settimeout");
+            }, 3000);
+            </script>
+    </body>
+</html>

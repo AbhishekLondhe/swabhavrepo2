@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>pie chart</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    </head>
+    <body>
+        <canvas id = "myChart" width="300" height="100"></canvas>
+        <canvas id = "myColoredChart" width="300" height="100"></canvas>
+        <script>
+            let myChart = document.getElementById('myChart').getContext('2d');
+
+            let pieChart = new Chart(myChart,{
+                type:'pie',
+                data: {
+                    labels:['80%','20%'],
+                    datasets:[{
+                        //label: 'test',
+                        data:[
+                            80,
+                            20
+                        ],
+                        backgroundColor:["red","blue"]
+                    }]
+                },
+                options: {
+                }
+            })
+     </script>
+    </body>
+</html>

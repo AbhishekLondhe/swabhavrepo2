@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .viewer {
+        height: 300px;
+        width: 300px;
+        border: 1px solid;
+
+    }
+</style>
+
+<head>
+    <script src="jquery.js"></script>
+</head>
+<script>
+    $(document).ready(() => {
+        $("#textid").on("input", function () {
+            $("#viewdiv").text($(this).val().toUpperCase());  //it can be done by keyup keyword in place of on keyword
+        })
+
+        $("#fontid").keyup(function () {
+            $("#viewdiv").css({ "font-size": "" + $(this).val() + "px" });
+        })
+
+        $("#forecolorlist").change(function () {
+            var fcolor = $("#forecolorlist option:selected").text();
+            $("#viewdiv").css({ "color": "" + fcolor })
+        })
+
+        $("#backcolorlist").change(function () {
+            var bcolor = $("#backcolorlist option:selected").text();
+            $("#viewdiv").css({ "background-color": "" + bcolor })
+        })
+    });
+</script>
+
+<body>
+    <div id="firstdiv" align="center">
+        Text <textarea name="input" id="textid" cols="20" rows="1"></textarea>
+        Font <textarea name="font" id="fontid" cols="20" rows="1"></textarea>
+        <br>
+        <div>foreground color: <div id="forecolor"></div>
+            <br>
+            <div>background color: <div id="backcolor"></div>
+                <div id="viewdiv" class="viewer"></div>
+            </div>
+
+</body>
+<script>
+    let color = ["red", "blue", "green"];
+
+    function foregroundcolordisplay() {
+        var colorOptions = '<select id="forecolorlist" value="0"><option >Select</option>';
+        console.log(color.length)
+        for (var i = 0; i < color.length; i++) {
+            colorOptions += '<option value=' + i + '>' + color[i] + '</option>';
+        }
+        colorOptions += "</select>";
+        document.querySelector("#forecolor").innerHTML = colorOptions;
+    }
+    foregroundcolordisplay();
+
+
+    function backgroundcolordisplay() {
+        var colorOptions = '<select id="backcolorlist" value="0"><option >Select</option>';
+        console.log(color.length)
+        for (var i = 0; i < color.length; i++) {
+            colorOptions += '<option value=' + i + '>' + color[i] + '</option>';
+        }
+        colorOptions += "</select>";
+        document.querySelector("#backcolor").innerHTML = colorOptions;
+    }
+    backgroundcolordisplay();
+
+</script>
+
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+        CustomerOrder={"customerName":"abc","mobileNumber":9000,"items":["laptop","iphone"]};
+        console.log(CustomerOrder.mobileNumber);
+        var jsonString=JSON.stringify(CustomerOrder);
+        console.log(jsonString);
+        console.log(typeof jsonString);
+        var deserialized=JSON.parse(jsonString);
+        console.log(deserialized.items[0]);
+        console.log(typeof deserialized);
+        </script>
+    </body>
+</html>

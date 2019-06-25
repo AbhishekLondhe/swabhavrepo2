@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="quizstyle.css">
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<body>
+    <center>
+        <div class="startdiv">
+            <h2>Technical Quiz</h2>
+            <a id="startbtn" type="submit">START</a>
+
+        </div>
+        <div class="quizviewer">
+            <div class="quizdisp">
+                <h4> <span id="totalattempt"></span></h4>
+                <strong><span id="question"></span></strong><br>
+                <input type="radio" class="radiobtn" name="choice" value="0"><span id="option1"></span><br><br>
+                <input type="radio" class="radiobtn" name="choice" value="1"><span id="option2"></span><br><br>
+                <input type="radio" class="radiobtn" name="choice" value="2"><span id="option3"></span><br><br>
+                <input type="radio" class="radiobtn" name="choice" value="3"><span id="option4"></span><br><br>
+            </div>
+            <div class="piedisp">
+                <canvas id="myChart" width="300" height="100"></canvas>
+                <canvas id="myColoredChart" width="300" height="100"></canvas>
+            </div>
+        </div>
+
+        <div class="nextdiv">
+            <a id="nextbtn" type="submit">NEXT</a>
+
+
+
+    </center>
+
+</body>
+
+<script type="text/javascript" src="questionbank.js"></script>
+
+<script>
+    (function () {
+
+
+        var actualAns;
+        var userScore = 0
+        var count = 0;
+
+        //start button click and quiz start
+        var ele = document.querySelector("#startbtn");
+        ele.addEventListener("click", function () {
+            document.getElementById("startbtn").style.display = "none";
+            document.getElementById("nextbtn").style.display = "inline-block";
+            document.querySelector(".quizdisp").style.display = "block";
+        })
+
+
+        var ele = document.querySelector("#startbtn");
+        ele.addEventListener("click", questionChange);
+
+
+        var ele1 = document.querySelector("#nextbtn");
+        ele1.addEventListener("click", resultAnalyzer);
+        ele1.addEventListener("click", questionChange);
+
+        function questionChange() {
+            count++;
+
+            if (count > 5) {
+                document.getElementById("nextbtn").innerHTML = "Submit";
+                console.log("aaaa");
+                document.querySelector(".quizdisp").style.display = "none";
+                document.querySelector(".piedisp").style.display = "block";
+                var question = questionbank.random(questionbank.length);
+                actualAns = question.answer;
+                resultpie();
+            }
+
+            if (count <= 5) {
+                var question = questionbank.random(questionbank.length);
+                document.querySelector("#question").innerHTML = question.question;
+                document.querySelector("#option1").innerHTML = question.options[0];
+                document.querySelector("#option2").innerHTML = question.options[1];
+                document.querySelector("#option3").innerHTML = question.options[2];
+                document.querySelector("#option4").innerHTML = question.options[3];
+                actualAns = question.answer;
+
+
+                //splice
+                for (var i = 0; i < questionbank.length; i++) {
+                    if (questionbank[i] == question) {
+                        questionbank.splice(i, 1);
+                    }
+                }
+                var ele2 = document.querySelector("#totalattempt").innerHTML = "Question" + count + "/5";
+
+            }
+        }
+
+
+
+        function resultAnalyzer() {
+            var userAns;
+            var radios = document.getElementsByName("choice");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    userAns = radios[i].value;
+                    radios[i].checked = false;
+                    console.log("user ans" + userAns);
+                    break;
+                }
+            }
+            if (userAns == actualAns) {
+                userScore++;
+            }
+
+            console.log(userScore);
+        }
+
+
+        function resultpie() {
+
+            let wrongAns = 5 - userScore;
+            let myChart = document.getElementById('myChart').getContext('2d');
+            let pieChart = new Chart(myChart, {
+                type: 'pie',
+                data: {
+                    labels: ["correct Answer", "wrong Answer"],
+                    datasets: [{
+                        //label: 'test',
+                        data: [
+                            userScore, wrongAns
+                        ],
+                        backgroundColor: ["red", "blue"]
+                    }]
+                },
+                options: {
+                }
+            })
+            
+            document.querySelector("#nextbtn").innerHTML = "Retest";
+            var retestAction = document.querySelector("#nextbtn");
+            retestAction.addEventListener("click", retest);
+        }
+    })();
+
+    function retest() {
+        location.href = "quiz.html";
+    }
+
+</script>
+
+</html>

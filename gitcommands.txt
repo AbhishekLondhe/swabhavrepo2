@@ -1,0 +1,10 @@
+1. git init
+2. git log
+3. git status
+4.to commit there are 2 phases: 
+	1.git add . or file name    (saves in memory)
+	2.git commit  -m 'message to pass'  (saves in disk)
+5. git checkout hash code or master
+6. git remote -v
+7. git remote add origin {url}
+8. git push origin master       ......(to saves all to github)  	

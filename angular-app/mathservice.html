@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+</head>
+<script>
+
+
+
+    angular.module("myService", [])
+        .factory("MathService", ['$log', function ($log) {
+            $log.info("inside mathservice");
+
+            var obj = {};
+            let flag = 0;
+            obj.generatePrimeNo = function (num) {
+                let primeArray = [];
+                for (let i = 2; i <= num; i++) {
+                    flag = 0;
+                    for (let j = 2; j <= i / 2; j++) {
+                        if (i % j == 0) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 0) {
+                        primeArray.push(i);
+                    }
+                }
+                return primeArray;
+            }
+
+            obj.generateEvenNo = function (num) {
+                let EvenArray = [];
+                for (let i = 0; i < num; i++) {
+                    if (i % 2 == 0) {
+                        EvenArray.push(i);
+                    }
+                }
+                return EvenArray;
+            }
+
+            return obj;
+        }])
+
+
+        .controller("PrimeNoController", ['$scope', 'MathService', function ($scope, MathService) {
+            $scope.primebtnclick = function () {
+                console.log("prime clicked")
+                $scope.primeList = MathService.generatePrimeNo($scope.num);
+            }
+        }])
+
+        .controller("EvenNoController", ['$scope', 'MathService', function ($scope, MathService) {
+            $scope.evenbtnclick = function () {
+                console.log(" even clicked");
+                $scope.EvenList = MathService.generateEvenNo($scope.num);
+            }
+        }])
+
+
+
+</script>
+
+
+<body ng-app="myService">
+    <div ng-controller="PrimeNoController">
+        <h1>Prime No.</h1>
+        Enter No.:<input type="text" ng-model="num">
+        <button class="btn btn-success" ng-click="primebtnclick()">Generate Prime</button>
+        <div ng-repeat="x in primeList">
+            <p>{{x}}</p>
+        </div>
+    </div>
+    <hr>
+    <div ng-controller="EvenNoController">
+        <h1>Even No.</h1>
+        Enter No:<input type="text" ng-model="num">
+        <button class="btn btn-success" ng-click="evenbtnclick()">Generarate Even</button>
+        <div ng-repeat="x in EvenList">
+            <p>{{x}}</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../angular.js"></script>
+    <script src="../angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/empservice.js"></script>
+    <script src="app/addController.js"></script>
+    <script src="app/editController.js"></script>
+    <script src="app/homeController.js"></script>
+    <script src="app/loginController.js"></script>
+
+
+</head>
+
+<body ng-app="empApp">
+    <center>
+        <header>
+            <h2><strong>Employee-SPA</strong></h2>
+        </header>
+    </center>
+    <div ng-controller='loginController'>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                </div>
+                <ul class="nav navbar-nav ">
+                    <li><a href="#!/">Home</a></li>
+                    <li><a href="#!/add" ng-hide="logout">Add</a></li>
+                    <li><a href="#!/edit" ng-hide="logout"></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#!/login" ng-show="logout"><span class="glyphicon glyphicon-log-in">Login</span></a>
+                    </li>
+                    <li><a href="#!/login" ng-click="logoutEmployee()" ng-hide="logout"><span class="glyphicon glyphicon-log-out"> Logout
+                                {{username | uppercase}}</span></a></li>
+            </div>
+            </ul>
+    </div>
+    </nav>
+
+    <section ng-view>
+
+    </section>
+
+</body>
+
+</html>

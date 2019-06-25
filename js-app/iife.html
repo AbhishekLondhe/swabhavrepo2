@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            //immediately invoke funtion expression
+        var f1=function(){
+            console.log("inside f1");
+        }();
+        console.log(typeof f1);
+
+        (function f2(){
+            console.log("inside f2");
+        })();
+        console.log(typeof f2);
+        </script>
+    </body>
+</html>

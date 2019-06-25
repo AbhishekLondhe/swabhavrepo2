@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+</head>
+<script>
+    angular.module('modStudent', [])
+        .controller('ControllerStudent', function ($scope, $rootScope) {
+            $scope.student = {
+                name: "abhishek",
+                cgpa: 7.56,
+                id: 1
+            }
+            console.log("object created");
+        });
+</script>
+
+<body ng-app="modStudent">
+    <div ng-controller="ControllerStudent">
+
+        <section>
+            <div>
+                <h1>one way</h1>
+                <p> student name:{{ student.name }} <br>
+                    student cgpa: {{ student.cgpa }} <br>
+                    student id:{{student.id}} <br>
+                </p>
+            </div>
+        </section>
+        <hr>
+        <section>
+
+            <div>
+                <h1>two way</h1>
+                name: <input type="text" ng-model="student.name">
+                cgpa: <input type="text" ng-model="student.cgpa">
+                id: <input type="text" ng-model="student.id">
+            </div>
+            <hr>
+        </section>
+        <div>
+            <h1>one time</h1>
+            <p>
+                {{::student.name}}
+                {{::student.cgpa}}
+                {{::student.id}}
+            </p>
+        </div>
+        <hr>
+        <section>
+
+        </section>
+    </div>
+</body>
+
+</html>

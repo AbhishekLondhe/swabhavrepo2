@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+</head>
+<style>
+    .divider {
+        height: 200px;
+        width: 200px;
+        border: 1px solid;
+        text-align: center
+    }
+</style>
+<script>
+    angular.module('modA', ['modB', 'modC'])
+        .controller('controllerA', function ($scope, $rootScope) {
+            console.log($scope);
+            console.log($rootScope);
+            $scope.messageA = 'hello controller A';
+        });
+
+    angular.module('modB', [])
+        .controller('controllerB', function ($scope, $rootScope) {
+            console.log($scope);
+            console.log($rootScope);
+            $scope.messageB = 'hello controller B';
+        });
+
+    angular.module('modC', [])
+        .controller('controllerC', function ($scope, $rootScope) {
+            console.log($scope);
+            console.log($rootScope);
+            $scope.messageC = 'hello controller C';
+        });
+
+</script>
+
+<body ng-app="modA">
+    <center>
+        <div ng-controller="controllerA" class="divider">
+            {{ messageA | uppercase}}
+        </div>
+        <div ng-controller="controllerB" class="divider">
+            {{ messageB | uppercase}}
+        </div>
+        <div ng-controller="controllerC" class="divider">
+            {{ messageC |uppercase}}
+        </div>
+    </center>
+</body>
+
+</html>

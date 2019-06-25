@@ -1,0 +1,23 @@
+package com.techlabs.chap2.dogdoor;
+
+public class DogDoor {
+
+	private boolean open;
+	public DogDoor() {
+		this.open=false;
+	}
+	
+	public void open() {
+		System.out.println("The Dog Door is opens..");
+		this.open=true;
+	}
+	
+	public void close() {
+		System.out.println("The Dog Door is closes.. ");
+		this.open=false;
+	}
+	public boolean isOpen() {
+		return open;
+	}
+}
+

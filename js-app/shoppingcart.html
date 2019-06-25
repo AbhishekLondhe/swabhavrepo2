@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .addcartbtn {
+        background-color: blue;
+        text-align: center;
+        display: inline-block;
+        padding: 5px 10px;
+        color: white;
+        margin: 2px;
+        cursor: pointer;
+    }
+
+    .deletebtn {
+        background-color: red;
+        text-align: center;
+        display: inline-block;
+        padding: 4px 8px;
+        color: white;
+        margin: 2px;
+        cursor: pointer;
+    }
+
+    .quantitySelect {
+        width: 40px;
+    }
+
+    .displayproduct {
+        text-align: left;
+        display: block;
+        height: 375px;
+        width: 700px;
+        border: 1px solid;
+    }
+</style>
+
+<body>
+    <title>SHOPPING CART</title>
+
+    <head>
+        <script type="text/javascript" src="product.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+
+
+    <div class="firstdiv">
+        <center>
+            <h3>SHOPPING CART</h3>
+            <div id="seconddiv">Product: </div>
+            <div id="thirddiv"><br>quantity <input type="number" id="quantityID" class="quantitySelect" min="1"
+                    max="100"><br><br><a id="submitbtn" class="addcartbtn" type="submit">Add to Cart</a>
+            </div>
+            <div class="container">
+                <h2>LineItems</h2>
+                <table id='carttable' class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>QUANTITY</th>
+                            <th>PRICE</th>
+                            <th>TOTAL</th>
+                            <th>DELETE OPTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="producttable">
+
+                    </tbody>
+                </table>
+                <div class="final-total">
+                    <h3 id="ordersum"></h3>
+                </div>
+            </div>
+
+        </center>
+    </div>
+</body>
+
+
+<script>
+
+    //(function(){ 
+    var option;
+    var parseOption;
+    var optionName;
+    var optionPrice;
+    var optionQuantity;
+    var cart = [];
+    var deletebtns;
+
+
+    document.querySelector("#submitbtn").addEventListener("click", getData);
+
+    function optionDisplay() {
+        var productOptions = '<select id="productlist" value="0"><option >Select</option>';
+        for (var i = 0; i < product.length; i++) {
+            productOptions += '<option value=' + i + '>' + product[i].name + ' ' + product[i].price + '</option>';
+        }
+        productOptions += "</select>";
+        document.querySelector("#seconddiv").innerHTML += productOptions;
+    }
+
+    optionDisplay();
+
+    function getData() {
+        option = document.querySelector("#productlist").value;
+        parseOption = parseInt(option);
+        optionName = product[parseOption].name;
+        optionPrice = product[parseOption].price;
+        optionQuantity = parseInt(document.querySelector("#quantityID").value);
+        var sampleproduct = {
+            "id": parseOption,
+            "name": optionName,
+            "quantity": optionQuantity,
+            "price": optionPrice
+        }
+        for (var i = 0; i < cart.length; i++) {
+            if (parseOption == cart[i].id) {
+                cart[i].quantity += parseInt(optionQuantity);
+                displayCart();
+                return;
+            }
+        }
+        cart.push(sampleproduct);
+        console.log(cart);
+        displayCart();
+    }
+
+    function displayCart() {
+        tableBody = document.querySelector("#producttable");
+        var lineItem = "";
+        for (var i = 0; i < cart.length; i++) {
+            lineItem += "<tr>" +
+                "<td>" + cart[i].id + "</td>" +
+                "<td>" + cart[i].name + "</td>" +
+                "<td>" + cart[i].price + "</td>" +
+                "<td>" + cart[i].quantity + "</td>" +
+                "<td>" + (cart[i].quantity * cart[i].price) + "</td>" +
+                "<td><button class='deletebtn' id='" + i + "'>Delete</button></td>" +
+                "</tr>";
+                document.querySelector("#producttable").innerHTML ="" ;               
+        }
+        document.querySelector("#producttable").innerHTML += lineItem;
+        orderSummary();
+        deleteProduct();
+    }
+
+    function deleteProduct(){
+        var deletebtns=document.querySelectorAll(".deletebtn");
+        console.log(deletebtns);
+        for(var i=0;i<cart.length;i++){
+            deletebtns[i].addEventListener("click",function(){
+                console.log('before'+cart);
+                cart.splice(this.id,1);
+                console.log('after'+cart);
+                displayCart();
+            })
+        }
+    }
+
+    function orderSummary() {
+        var totalSummary = 0;
+        for (var i = 0; i < cart.length; i++) {
+            totalSummary += cart[i].price * cart[i].quantity;
+            console.log(totalSummary)
+        }
+        document.querySelector("#ordersum").innerHTML = "Order Summary: " + totalSummary + "/-";
+    }
+
+//})();
+</script>
+
+</html>

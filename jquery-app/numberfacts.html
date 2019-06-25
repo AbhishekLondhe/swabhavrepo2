@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    .factViewer {
+        text-align: left;
+        display: block;
+        height: 435px;
+        width: 700px;
+        border: 1px solid;
+    }
+</style>
+
+<head>
+    <script src="jquery.js"></script>
+</head>
+
+<script>
+
+    var factArray = [];
+    var displayFactsArray = [];
+    $(document).ready(() => {
+        displayAllFacts();
+        $("#factbtn").click(() => {
+            $("#factdata").empty();
+            var num = $("#numinputs").val();
+            console.log(num);
+            getFact(num)
+                .then(function (r) {
+                    console.log(r);
+                    factArray = JSON.parse(localStorage.getItem("newfacts"));
+                    factArray.push(r);
+                    localStorage.setItem("newfacts", JSON.stringify(factArray));
+                    displayALlFacts();
+                })
+                .catch(function (e) {
+                    console.log(e);
+                    displayAllFacts();
+                    //$("#factdata").text(e);
+                })
+        })
+        function displayAllFacts() {
+            var allfacts = "";
+            factArray = JSON.parse(localStorage.getItem("newfacts"));
+            for (var i = factArray.length-1; i>0  ; i--) {
+                allfacts += factArray[i] + "<br>";
+            }
+            $("#factdata").html(allfacts);
+        }
+    });
+
+
+
+    var getFact = (num) => {
+        return new Promise(function (resolve, reject) {
+            if (num) {
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                }
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        resolve(xmlhttp.responseText);
+                    }
+                }
+                xmlhttp.open("GET", "http://numbersapi.com/" + num);
+                xmlhttp.send();
+            }
+            else {
+                reject('invalid number');
+            }
+        })
+    }
+
+
+</script>
+
+
+<body>
+    <div id="firstdiv" align="center">
+        <h2>Number Facts</h2>
+        <div id="seconddiv" align="center">
+            Enter Number&nbsp;<input type="number" id="numinputs"><br><br>&nbsp;<button id="factbtn">Get
+                Facts</button><br>
+            <div id="thirddiv" class="factViewer">
+                <p id="factdata"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+</html>

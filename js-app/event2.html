@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div>
+        <button id="hello">Hello</button>
+        <button id="exit">Exit</button>
+    </div>
+</body>
+<script>
+    (function () {
+        let ele = document.querySelector("#hello");
+        ele.addEventListener("click", listener);
+        let ele1 = document.querySelector("#exit");
+        ele1.addEventListener("click", listener);
+
+        function listener() {
+            if (document.querySelector("#hello") == this) {
+                console.log("hello");
+            }
+            if (document.querySelector("#exit") == this) {
+                window.close();
+            }
+        }
+    })();
+</script>
+
+</html>

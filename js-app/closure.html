@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <p>a closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created,
+         at function creation time. To use a closure, simply define a function inside another function and expose it.</p>
+    <script>
+        function outer_function() {
+            var passed =3;
+            var add = function (inner) {
+                return passed + inner;
+            }
+            return add;
+        }
+
+        var getouter = outer_function();
+        console.dir(getouter);
+        console.log(getouter(3));
+ </script>
+</body>
+
+</html>

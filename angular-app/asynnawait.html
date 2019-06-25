@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+</head>
+<script>
+    angular.module("mathAsynService", [])
+        .factory('mathservice', ['$q', '$log', function ($q, $log) {
+            let obj = {};
+            obj.isEven = function (num) {
+                return $q((resolve, reject) => {
+                    if (num % 2 == 0) {
+                        resolve(true);
+                    }
+                    else {
+                        reject(false);
+                    }
+                })
+            }
+            return obj;
+        }])
+        .controller('mathController', ['$scope', '$log', 'mathservice',  function ($scope, $log, mathservice) {
+            $scope.response;
+            $scope.btnclick = async function () {
+               $scope.response= await mathservice.isEven($scope.num);
+                console.log($scope.response)
+                $scope.$apply();
+            }
+        }])
+</script>
+
+<body ng-app="mathAsynService">
+    <div ng-controller="mathController">
+        <h1>Even No.</h1>
+        Enter No:<input type="text" ng-model="num">
+        <button class="btn btn-success" ng-click="btnclick()">check</button>
+        <div>
+            <p>{{response}}</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

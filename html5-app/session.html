@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+        if(sessionStorage){
+            sessionStorage.setItem("lastName","parker");
+            alert("hi"+sessionStorage.getItem("lastName"));
+        }
+        else{
+            alert("your browser does not support session storage");
+        }
+        </script>
+    </body>
+</html>

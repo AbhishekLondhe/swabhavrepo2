@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script>
+        var swabhav = {};
+        swabhav.cubeEven = function (num) {
+            if (num % 2 == 0) {
+                return num * num * num;
+            }
+            else {
+                return "invalid input";
+            }
+        }
+        swabhav.isPrime = function (num) {
+            for (var i = 2; i < num / 2; i++) {
+                if (num % i == 0) {
+                    return num + " not prime";
+                }
+                else {
+                    return num + " is prime";
+                }
+            }
+        }
+
+        console.log(swabhav.cubeEven(10));
+        console.log(swabhav.isPrime(11));
+
+
+
+
+
+
+
+        var swabhav = function () {
+            console.log("inside swabhav");
+            var obj = {};
+            obj.cubeEven = function (num) {
+                if (num % 2 == 0) {
+                    var cube= num * num * num;
+                    console.log(cube);
+                    return cube;
+                }
+                else {
+                    cosnole.log("invalid input");
+                    return "invalid input";
+                }
+            }
+            obj.isPrime = function (num) {
+                for (var i = 2; i < num / 2; i++) {
+                    if (num % i == 0) {
+                        console.log("not prime")
+                        return num + " not prime";
+                    }
+                    else {
+                        console.log(num+" is prime")
+                        return num + " is prime";
+                    }
+                }
+            }
+            return obj;
+        }();
+
+        swabhav.cubeEven(8);
+        swabhav.isPrime(11);
+
+
+    </script>
+</body>
+
+</html>

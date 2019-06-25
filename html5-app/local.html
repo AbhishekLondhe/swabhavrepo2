@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+        if(localStorage){
+            localStorage.setItem("firstName","peter");
+            alert("hi"+localStorage.getItem("firstName"));
+        }
+        else{
+            alert("your browser doesnot support local storage");
+        }
+        </script>
+    </body>
+</html>

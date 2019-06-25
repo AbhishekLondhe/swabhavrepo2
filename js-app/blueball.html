@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    .wrapper {
+        text-align: right;
+        display: none;
+    }
+
+    .fiftybtn {
+        display: none;
+        width: 100px;
+        height: 100px;
+        line-height: 50px;
+        border: 3px solid black;
+        border-radius: 50%;
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        background: #464646;
+        box-shadow: 0 0 3px gray;
+        font-size: 20px;
+        font-weight: bold;
+        float: left;
+        background: gray;
+    }
+
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .center {
+        text-align: center;
+        display: block;
+    }
+</style>
+
+<body>
+
+    <div class="wrapper">
+        <h3 id="counter"></h3>
+        <h3 id="attempts"></h3>
+    </div>
+
+    <div id="firstpage" class="center">
+        <p>BLUEBALL GAME</p>
+        <a id="startbtn" class="button" type="submit">START</a>
+        <p>Rules: <br>
+            1.You have to recognize blueball. <br>
+            2.You have only 5 attempts. <br>
+            3.Redball indicates value is lesser than blueball. <br>
+            4.Greenball indicates value is Greater than blueball. <br>
+        </p>
+    </div>
+
+
+    <script>
+        (function () {
+
+            var singledisp = document.querySelector("#firstpage");
+            singledisp.addEventListener("click", function () {
+                document.getElementById("firstpage").style.display = "none";
+                var elems = document.getElementsByClassName("fiftybtn")
+                for (var i = 0; i < elems.length; i++) {
+                    elems[i].style.display = "block";
+                }
+                var countdisp = document.getElementsByClassName("wrapper");
+                for (var i = 0; i < countdisp.length; i++) {
+                    countdisp[i].style.display = "block";
+                }
+            });
+
+
+
+
+
+            // countdown
+            function countdown() {
+                var seconds = 60;
+                function tick() {
+                    var counter = document.querySelector("#counter");
+                    seconds--;
+                    counter.innerHTML = "Time remaining=0:" + (seconds < 10 ? "0" : "") + String(seconds);
+                    if (seconds > 0) {
+                        setTimeout(tick, 1000);
+                    } else {
+                        setTimeout(returntomain, 5000);
+                        alert("Game over");
+                    }
+                }
+                tick();
+            }
+            countdown();
+
+
+
+
+            //buttons created
+            let count = 5;
+            var attempts = document.querySelector("#attempts");
+            attempts.innerHTML = "remaining attempts=" + count;
+            let i = 1;
+            var docFrag = document.createDocumentFragment();
+            for (i; i <= 50; i++) {
+                var elem = document.createElement('button');
+                elem.setAttribute('id', 'i');
+                elem.setAttribute('value', 'i');
+                elem.setAttribute('class', 'fiftybtn');
+                elem.innerHTML = i;
+                docFrag.appendChild(elem);
+                elem.addEventListener("click", play);
+            }
+            document.body.appendChild(docFrag);
+
+            //random number generation
+            let random = Math.random();
+            let targetrandom = Math.floor((random / 2) * 100);
+            console.log(targetrandom);
+
+
+
+            //play function
+            function play() {
+                this.disabled=true;
+                count--;
+                var btnvalue = this.innerHTML;
+                if (count == 0) {
+                    setTimeout(returntomain, 5000);
+                    
+                    //disabling buttons
+                    var elems = document.getElementsByClassName("fiftybtn")
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].disabled = true;
+                    }
+                }
+                console.log(btnvalue);
+                console.log(count);
+
+                if (btnvalue > targetrandom) {
+                    this.style.background = "green";
+                }
+                if (btnvalue < targetrandom) {
+                    this.style.background = "red";
+                }
+                if (btnvalue == targetrandom) {
+                    this.style.background = "blue";
+                    this.innerHTML = "Winner";
+                    var elems = document.getElementsByClassName("fiftybtn")
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].disabled = true;
+                    }
+                    setTimeout(returntomain, 5000);
+                }
+                attempts.innerHTML = "remaining attempts=" + count;
+            }
+
+            function returntomain() {
+
+                location.href = "blueball.html";
+            }
+        })();
+    </script>
+</body>
+
+</html>

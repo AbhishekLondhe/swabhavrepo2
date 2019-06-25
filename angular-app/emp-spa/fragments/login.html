@@ -1,0 +1,28 @@
+<div><strong>
+        <h3>
+            <center>Login</center>
+        </h3>
+    </strong></div>
+
+<form class="form-inline" name="myform" ng-model="myform">
+    <div align="center"><br>
+
+        <p>Username: <input id="usernameid" type="text" class="form-control" placeholder="Enter Username"
+                name="userrname" ng-model="username" required>
+            <span style="color:red" ng-show="myform.username.$dirty && myform.username.$invalid">
+                <span ng-show="myform.username.$error.required">Username is required.</span>
+            </span></p>
+
+
+        <p>Password:<input id="pwdid" type="password" class="form-control" placeholder="Enter Password" ng-model="pwd"
+                name="pwd" required>
+            <span style="color:red" ng-show="myform.pwd.$dirty && myform.pwd.$invalid">
+                <span ng-show="myform.pwd.$error.required">password is required.</span>
+            </span></p>
+
+
+        <button class="btn btn-info" id="loginbtn" ng-disabled="myform.username.$invalid || myform.pwd.$invalid "
+            ng-click="loginEmployee()">
+            Login</button>&nbsp;
+    </div>
+</form>

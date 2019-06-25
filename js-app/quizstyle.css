@@ -1,0 +1,59 @@
+.quizviewer {
+    text-align: left;
+    display: block;
+    height: 375px;
+    width: 700px;
+    border: 1px solid;
+}
+
+
+#startbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#nextbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.startdiv {
+    text-align: center;
+    display: block;
+}
+
+.nextdiv {
+    text-align: center;
+    display: block;
+}
+
+.submitdiv {
+    text-align: center;
+    display: none;
+}
+
+.quizdisp{
+    display:none;
+    float: left;
+    text-align: left;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top:10%;
+}
+
+
+.piedisp{
+    display: none;
+}

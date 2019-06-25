@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <style>
+        .center {
+            color: red;
+        }
+    </style>
+    <form name="loginForm" action="auth.php" method="POST">
+        Username:<input type="text" name="name" id="name"><span id="rq1" class="center"></span><br>
+        Password:<input type="password" name="password" id="pass"><span id="rq2" class="center"></span><br>
+        <input type="submit" id="login">
+    </form>
+    <script>
+        (function () {
+            let elem1 = document.querySelector("#login");
+            elem1.addEventListener("click", validation);
+
+            function validation() {
+                let val = document.forms["loginForm"]["name"].value;
+                let val1 = document.forms["loginForm"]["password"].value;
+                if (val == "" && val1 == "") {
+                    document.querySelector("#rq1").innerHTML = "required";
+                    document.querySelector("#rq2").innerHTML = "required";
+                    event.preventDefault();
+                }
+            }
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+</head>
+<style>
+.page{
+    display: none;
+}
+</style>
+<script>
+    let locationHashChanged=function(){
+        if(location.hash==="#placesPage"){
+            console.log("you are visiting places Page");
+        }
+        if(location.hash==="#historyPage"){
+            console.log("you are visiting history Page");
+        }
+        if(location.hash==="#famousPeoplePage"){
+            console.log("you are visiting famous People Page");
+        }
+        if(location.hash==="#politicsPage"){
+            console.log("you are visiting politics Page");
+        }
+    }
+
+    window.onhashchange=locationHashChanged;
+</script>
+<body onhashchange="locationHashChanged()">
+    <div>
+        <ul>
+            <li><a href="#placesPage">Places</a></li>
+            <li><a href="#historyPage">History</a></li>
+            <li><a href="#famousPeoplePage">Famous People</a></li>
+            <li><a href="#politicsPage">Politics</a></li>
+        </ul>
+    </div>
+
+    <br><br><br><br>
+
+    <div id="placesPage">
+        <h3>Places</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias sit possimus enim nisi non est fugit assumenda delectus quo error ducimus, optio laboriosam ipsam similique quos dolore rerum earum soluta.</p>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="historyPage">
+        <h3>History</h3>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum cumque sunt culpa delectus tempore enim, esse dicta voluptatem, officiis animi beatae aspernatur fuga laudantium dolores voluptates. Ducimus placeat doloribus ipsam.</p>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="famousPeoplePage">
+        <h3>Famous Poeple</h3>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis quasi architecto saepe culpa dolor, nesciunt unde itaque tempore possimus! Impedit est, provident consectetur dolorem obcaecati esse accusantium exercitationem accusamus mollitia.</p>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="politicsPage">
+        <h3>Politics</h3>
+        <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur fugiat quisquam unde consequatur? Reiciendis, laborum laudantium placeat deserunt vitae molestiae quia magnam dolor, quibusdam nihil quod ducimus accusantium nisi sunt!</P>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

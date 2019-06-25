@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function Employee(fname,lname){
+                this.fname=fname;
+                this.lname=lname;
+            }
+
+            //this is poiting to prototype(parent)
+            Employee.prototype.getFullName=function(){
+                return "firstName:"+this.fname+" lastName:"+this.lname;
+            }
+
+            var e1=new Employee("abc","xyz");
+            console.log(e1.getFullName());
+            console.log(e1);
+            console.log(e1.__proto__==Employee.prototype);//this is __proto__ variable
+            var e2=new Employee("pqr","def");
+            console.log(e2.getFullName());
+            console.log(e2);
+            console.log(e2.__proto__==Employee.prototype);
+            console.log(e1.__proto__==e2.__proto__);
+            </script>
+    </body>
+</html>

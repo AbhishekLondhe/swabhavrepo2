@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    .factViewer {
+        text-align: left;
+        display: block;
+        height: 435px;
+        width: 700px;
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid blue;
+        border-right: 16px solid green;
+        border-bottom: 16px solid red;
+        width: 20px;
+        height: 20px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<head>
+    <script src="jquery.js"></script>
+</head>
+
+<script>
+
+    var factArray = [];
+    var displayFactsArray = [];
+    $(document).ready(() => {
+        //$("#spinnerdiv").hide();
+        displayAllFacts();
+        $("#factbtn").click(() => {
+            $("#spinnerdiv").show();
+            $("#factdata").empty();
+            var num = $("#numinputs").val();
+            console.log(num);
+            setTimeout(function () {
+                $.ajax({
+                    url: "http://numbersapi.com/" + num,
+                    success: function (result) {
+                        $("#spinnerdiv").hide();
+                        console.log(result);
+                        factArray = JSON.parse(localStorage.getItem("newfacts"));
+                        factArray.push(result);
+                        localStorage.setItem("newfacts", JSON.stringify(factArray));
+                        displayAllFacts();
+                    }
+                })
+            }, 3000)
+        })
+    })
+
+    function displayAllFacts() {
+        var allfacts = "";
+        factArray = JSON.parse(localStorage.getItem("newfacts"));
+        for (var i = factArray.length - 1; i > 0; i--) {
+            allfacts += factArray[i] + "<br>";
+        }
+        $("#factdata").html(allfacts);
+    }
+
+
+
+</script>
+
+<body>
+    <div id="firstdiv" align="center">
+        <h2>Number Facts</h2>
+        <div id="seconddiv" align="center">
+            Enter Number&nbsp;<input type="number" id="numinputs"><br><br>&nbsp;<button id="factbtn">Get
+                Facts</button><br>
+            <div id="thirddiv" class="factViewer">
+                <div id="spinnerdiv" class="loader" style="display: none"></div>
+                <p id="factdata"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>

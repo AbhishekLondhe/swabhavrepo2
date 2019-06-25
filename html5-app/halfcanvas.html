@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>pie chart</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    </head>
+    <body>
+        <canvas id = "myChart" width="300" height="100"></canvas>
+        <canvas id = "myColoredChart" width="300" height="100"></canvas>
+        <script>
+            let myColoredChart = document.getElementById('myColoredChart').getContext('2d');
+
+            let pieColoredChart = new Chart(myColoredChart,{
+                type:'pie',
+                data: {
+                    labels:['Red','Blue'],
+                    datasets:[{
+                        //label: 'test',
+                        data:[
+                            50,
+                            50
+                        ],
+                        backgroundColor:[
+                            "red",
+                            "blue"
+                        ]
+                    }]
+                },
+                options: {
+
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<style>
+    .view {
+        height: 500px;
+        width: 1000px;
+        text-align: center;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<script>
+
+    $(document).ready(() => {
+        display();
+        function display() {
+            $.ajax({
+                url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/",
+                success: function (result) {
+                    var alldata = "";
+                    $(".badge").text(result.length);
+                    for (var i = 0; i < result.length; i++) {
+                        let gender = "";
+                        if (result[i].isMale == true) {
+                            gender = "male";
+                        }
+                        else {
+                            gender = "female"
+                        }
+
+                        alldata += "<tr>" +
+                            "<td>" + result[i].id + "</td>" +
+                            "<td>" + result[i].rollNo + "</td>" +
+                            "<td>" + result[i].name + "</td>" +
+                            "<td>" + result[i].email + "</td>" +
+                            "<td>" + result[i].age + "</td>" +
+                            "<td>" + result[i].date + "</td>" +
+                            "<td>" + gender + "</td>" +
+                            "</tr>";
+                    }
+                    $("#studenttable").html(alldata);
+                }
+            })
+        }
+
+        $("#submitbtn").click(() => {
+
+            var name = $("#nameid").val();
+            var rollno = $("#roll_noid").val();
+            var email = $("#emailid").val();
+            var age = $("#ageid").val();
+            //var genderValue=(".radiobtn").val();
+            var gender;
+            if ($("#male").is(":checked")) {
+                gender = true
+            }
+            else {
+                gender = false;
+            }
+            //console.log($("#male").is(":checked"))
+            $("#myform").trigger("reset");
+            console.log("reset")
+            /*if (genderValue=="male") {
+                gender = true;
+            }
+            else {
+                gender = false;
+            }*/
+            //console.log(genderValue)
+            //console.log(gender);
+            var date = $("#dateid").val();
+            var samplejson = {
+                rollNo: rollno,
+                name: name,
+                email: email,
+                age: age,
+                date: date,
+                isMale: gender
+            }
+            /*$.ajax({
+                type: "POST",
+                url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/",
+                success: function (result) {
+                    console.log(result);
+                    display();
+                }
+                , data: samplejson, failure: function () {
+                    console.log(error);
+                }
+            })*/
+
+
+        })
+
+
+
+    })
+</script>
+
+
+<body>
+    <div class="container">
+        <div align="center"><br><br> number of total students<span class="badge"></span></div>
+        <form class="form-inline" id="myform">
+            <div align="center"><br> <strong>Student API</strong><br><br>
+                Roll no:<input id="roll_noid" type="text" class="form-control" placeholder="Enter roll no"><br>
+                Name: <input id="nameid" type="text" class="form-control" placeholder="Enter name"><br>
+                Email:<input id="emailid" type="text" class="form-control" placeholder="Enter email"><br>
+                Date: <input id="dateid" type="date" class="form-control"><br>
+                Age: <input id="ageid" type="number" min=1 max=100 class="form-control" style=width:100px><br>
+                Gender: <input type="radio" class="radiobtn" id="male" name="male" value="male"><span
+                    id="option1">male</span>
+                <input type="radio" class="radiobtn" id="female" name="female" value="female"><span
+                    id="option2">female</span><br><br>
+                <span class="btn btn-success" id="submitbtn">submit</span>
+            </div>
+            <center>
+                <div class="view" id="viewdiv">
+                    <h2>Student Info</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ROLL NO</th>
+                                <th>NAME</th>
+                                <th>EMAIL</th>
+                                <th>AGE</th>
+                                <th>DATE</th>
+                                <th>GENDER</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studenttable">
+
+                        </tbody>
+                    </table>
+                </div>
+            </center>
+        </form>
+    </div>
+</body>
+
+</html>

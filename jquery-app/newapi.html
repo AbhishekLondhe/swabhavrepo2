@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<style>
+    .view {
+        height: 500px;
+        width: 1200px;
+        text-align: center;
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid blue;
+        border-right: 16px solid green;
+        border-bottom: 16px solid red;
+        width: 20px;
+        height: 20px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="studentapiservice.js"></script>
+</head>
+<script>
+
+    var studentFetchData = [];
+    $(document).ready(() => {
+
+
+        $("#updatebtn").attr("disabled", true);
+        let studIdToUpdate = "";
+        $("#spinnerdiv").hide();
+        display();
+
+        function updateDeleteBtnReady() {
+            $(".delete").click(function () {
+                console.log(this.id);
+                if (confirm("Do you want to delete!!")) {
+                    deleteStudentData(this.id)
+                        .then(function (result) {
+                            $("#spinnerdiv").hide();
+                            console.log(result);
+                            display();
+                        })
+                }
+            })
+
+            $(".edit").click(function () {
+                $("#updatebtn").attr("disabled", false);
+                $("#addbtn").attr("disabled", true);
+                studIdToUpdate = this.id;
+                let id = this.id;
+                fetchStudentData()
+                    .then(function (result) {
+                        $("#spinner").hide();
+                        for (let i = 0; i < result.length; i++) {
+                            if (result[i].id == id) {
+                                if (result[i].isMale == true) {
+                                    $("#male").prop("checked", true);
+                                }
+                                else {
+                                    $("#female").prop("checked", true);
+                                }
+                                $("#roll_noid").val(result[i].rollNo);
+                                $("#nameid").val(result[i].name);
+                                $("#ageid").val(result[i].age);
+                                $("#emailid").val(result[i].email);
+                                $("#dateid").val(result[i].date);
+                            }
+                        }
+                        updateDeleteBtnReady();
+                    })
+            })
+        }
+
+        function display() {
+            fetchStudentData()
+                .then(function (result) {
+                    studentFetchData = result;
+                    displayData(studentFetchData);
+                    updateDeleteBtnReady();
+                })
+
+            var displayData = function (studentFetchData) {
+                var alldata = "";
+                $(".badge").text(studentFetchData.length);
+                for (var i = 0; i < studentFetchData.length; i++) {
+                    let gender = "";
+                    if (studentFetchData[i].isMale == true) {
+                        gender = "male";
+                    }
+                    else {
+                        gender = "female"
+                    }
+
+                    alldata += "<tr>" +
+                        "<td>" + studentFetchData[i].id + "</td>" +
+                        "<td>" + studentFetchData[i].rollNo + "</td>" +
+                        "<td>" + studentFetchData[i].name + "</td>" +
+                        "<td>" + studentFetchData[i].email + "</td>" +
+                        "<td>" + studentFetchData[i].age + "</td>" +
+                        "<td>" + studentFetchData[i].date + "</td>" +
+                        "<td>" + gender + "</td>" +
+                        '<td><button type="button" id="' + studentFetchData[i].id + '" class="edit glyphicon glyphicon-pencil btn btn-warning"></button></td>' +
+                        '<td><button type="button" id="' + studentFetchData[i].id + '"  class="delete glyphicon glyphicon-trash btn btn-danger"></button></td>' +
+                        "</tr>";
+                }
+                $("#studenttable").html(alldata);
+            }
+        }
+
+
+        $("#addbtn").click(() => {
+            $("#spinnerdiv").show();
+            let newObj = createStudentObject();
+            saveStudentData(newObj)
+                .then(function (result) {
+                    $("#spinnerdiv").hide();
+                    console.log(result);
+                    display();
+                })
+            $("#myform").trigger("reset");
+        })
+
+
+        $("#updatebtn").click(() => {
+            $("#updatebtn").attr("disabled", true);
+            $("#addbtn").attr("disabled", false);
+            $("#spinnerdiv").show();
+            let newObj = createStudentObject();
+            updateStudentData(studIdToUpdate, newObj)
+                .then(function (result) {
+                    $("#spinnerdiv").hide();
+                    display();
+                })
+            $("#myform").trigger("reset");
+        })
+
+         createStudentObject=function() {
+            var name = $("#nameid").val();
+            var rollno = $("#roll_noid").val();
+            var email = $("#emailid").val();
+            var age = $("#ageid").val();
+            var date = $("#dateid").val();
+            var gender;
+            if ($("#male").is(":checked")) {
+                gender = true
+            }
+            else {
+                gender = false;
+            }
+            $("#myform").trigger("reset");
+            var samplejson = {
+                rollNo: rollno,
+                name: name,
+                email: email,
+                age: age,
+                date: date,
+                isMale: gender
+            }
+          return samplejason;    
+        }
+
+    })
+</script>
+
+
+<body>
+    <div class="container  ">
+        <div align="center"><br><br> number of total students<span class="badge"></span></div>
+        <form class="form-inline" id="myform">
+            <div align="center"><br> <strong>Student API</strong><br><br>
+                Roll no:<input id="roll_noid" type="text" class="form-control" placeholder="Enter roll no"><br>
+                Name: <input id="nameid" type="text" class="form-control" placeholder="Enter name"><br>
+                Email:<input id="emailid" type="text" class="form-control" placeholder="Enter email"><br>
+                Date: <input id="dateid" type="date" class="form-control"><br>
+                Age: <input id="ageid" type="number" min=1 max=100 class="form-control" style=width:100px><br>
+                Gender: <input type="radio" class="radiobtn" id="male" name="male" value="male"><span
+                    id="option1">male</span>
+                <input type="radio" class="radiobtn" id="female" name="female" value="female"><span
+                    id="option2">female</span><br><br>
+                <span class="btn btn-success" id="addbtn">Add</span>&nbsp;
+                <span class="btn btn-info" id="updatebtn">Update</span>
+            </div>
+            <center>
+                <div class="view" id="viewdiv">
+                    <h2>Student Info</h2>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ROLL NO</th>
+                                <th>NAME</th>
+                                <th>EMAIL</th>
+                                <th>AGE</th>
+                                <th>DATE</th>
+                                <th>GENDER</th>
+                                <th>UPDATE</th>
+                                <th>DELETE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studenttable">
+                            <center>
+                                <div id="spinnerdiv" class="loader" style="display: none"></div>
+                            </center>
+                        </tbody>
+                    </table>
+                </div>
+            </center>
+        </form>
+    </div>
+</body>
+
+</html>
