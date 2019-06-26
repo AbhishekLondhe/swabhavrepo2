@@ -9,12 +9,15 @@ LOCATION_ID int primary key,STREET_ADDRESS VARCHAR(40),
 POSTAL_CODE VARCHAR(12),CITY VARCHAR(30)  NOT NULL,
  STATE_PROVINCE VARCHAR(25), COUNTRY_ID CHAR(2)) ;
 
+
 alter table locations add foreign key (country_id) references countries(country_id);
+
 
 INSERT INTO regions VALUES( 1, 'Europe');
 INSERT INTO regions VALUES( 2, 'Americas');
 INSERT INTO regions VALUES( 3, 'Asia');
 INSERT INTO regions VALUES( 4, 'Middle East and Africa');
+
 
 INSERT INTO countries VALUES( 'IT', 'Italy', 1);
 INSERT INTO countries VALUES( 'JP', 'Japan', 3);
@@ -43,7 +46,6 @@ INSERT INTO countries VALUES( 'AR', 'Argentina', 2);
 INSERT INTO countries VALUES( 'BE', 'Belgium', 1);
 
 
-
 INSERT INTO locations VALUES( 1000, '1297 Via Cola di Rie', '00989', 'Roma', NULL, 'IT');
 INSERT INTO locations VALUES( 1100, '93091 Calle della Testa', '10934', 'Venice', NULL, 'IT');
 INSERT INTO locations VALUES( 1200, '2017 Shinjuku-ku', '1689', 'Tokyo', 'Tokyo Prefecture', 'JP');
@@ -56,10 +58,7 @@ INSERT INTO locations VALUES( 1800, '147 Spadina Ave', 'M5V 2L7', 'Toronto', 'On
 INSERT INTO locations VALUES( 1900, '6092 Boxwood St', 'YSW 9T2', 'Whitehorse', 'Yukon', 'CA');
 
 
-
 select * from regions;
 select * from countries;
 select * from locations;
-
-
 
