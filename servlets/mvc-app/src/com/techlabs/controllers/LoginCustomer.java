@@ -34,7 +34,6 @@ public class LoginCustomer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		url = (String) request.getAttribute("reDirectToUrl");
-		System.out.println("get url"+url);
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}

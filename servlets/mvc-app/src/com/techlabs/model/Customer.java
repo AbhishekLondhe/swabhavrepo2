@@ -10,13 +10,14 @@ private String dob;
 private double balance;
 private CardType card;
 
-public Customer(String firstName,String lastName,String dob,double balance,CardType card) {
-	this.id=UUID.randomUUID().toString();
+public Customer(String id,String firstName,String lastName,String dob,double balance,CardType card) {
+	this.id=id;
 	this.firstName=firstName;
 	this.lastName=lastName;
 	this.dob=dob;
 	this.balance=balance;
 	this.card=card;
+	System.out.println("customer created");
 }
 
 public String getFirstName() {

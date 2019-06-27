@@ -64,6 +64,7 @@ public class EditCustomer extends HttpServlet {
 		customer.setBalance(balance);
 		customer.setDob(dob);
 		customer.setCard(card);
+		CustomerServices.getInstance().editCustomer(ID, customer);
 		response.sendRedirect("CustomerController");
 		// request.setAttribute("editCustomer", customer);
 		// RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");

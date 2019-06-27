@@ -43,8 +43,10 @@ public class AuthFilter implements Filter {
 		HttpServletRequest req=(HttpServletRequest) request;
 		String url="";
 		String reqUrl=req.getRequestURI();
+		System.out.println(reqUrl);
 		String[] urlArray=reqUrl.split("/");
-		url=url+urlArray[2];
+		System.out.println("urlarray:"+urlArray[2]);
+		url=urlArray[2];
 		if(req.getParameter("id")!=null) {
 			System.out.println("id"+req.getParameter("id"));
 			url=url+"?id="+req.getParameter("id");

@@ -12,6 +12,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import com.techlabs.services.CustomerServices;
+
 /**
  * Servlet Filter implementation class AuthFilter
  */
@@ -41,7 +43,11 @@ public class LoginFilter implements Filter {
 		if(req.getParameterNames().hasMoreElements()) {
 			String userName=request.getParameter("username");
 			String password=request.getParameter("password");
-			if(userName.equals("admin") && password.equals("admin")) {
+			
+			String uname=CustomerServices.getInstance().getUname().toLowerCase();
+			String pwd=CustomerServices.getInstance().getpwd().toLowerCase();
+			System.out.println("u:"+userName+"pwd"+password);
+			if(userName.equals(uname) && password.equals(pwd)) {
 				chain.doFilter(request, response);
 			}
 			else {

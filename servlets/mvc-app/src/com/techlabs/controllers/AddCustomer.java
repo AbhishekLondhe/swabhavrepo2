@@ -56,8 +56,10 @@ public class AddCustomer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		String id = request.getParameter("id") ;
+		String id = UUID.randomUUID().toString() ;
+		
 		String firstName = request.getParameter("firstname");
+		System.out.println(firstName);
 		String lastName = request.getParameter("lastname");
 		double balance = Double.parseDouble(request.getParameter("balance"));
 		String dob = request.getParameter("dob");
@@ -66,7 +68,6 @@ public class AddCustomer extends HttpServlet {
 		} else {
 			card = card.debit;
 		}
-		newCustomer = CustomerServices.getInstance().getCustomer();
 		//if (CustomerServices.getInstance().getCustomerById(id) != null) {
 			//Customer customer = CustomerServices.getInstance().getCustomerById(id);
 		//	customer.setFirstName(firstName);
@@ -75,10 +76,11 @@ public class AddCustomer extends HttpServlet {
 		//}
 
 		//if (CustomerServices.getInstance().getCustomerById(id) == null) {
-			CustomerServices.getInstance().addCustomer(new Customer(firstName, lastName, dob, balance, card));
-			request.setAttribute("customer", newCustomer);
-			RequestDispatcher view = request.getRequestDispatcher("customer.jsp");
-			view.forward(request, response);
+			CustomerServices.getInstance().addCustomer(new Customer(id,firstName, lastName, dob, balance, card));
+			response.sendRedirect("CustomerController");
+			//request.setAttribute("customer", newCustomer);
+		//	RequestDispatcher view = request.getRequestDispatcher("customer.jsp");
+		//	view.forward(request, response);
 			//return;
 		//}
 
