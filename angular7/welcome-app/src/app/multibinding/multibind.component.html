@@ -1,0 +1,36 @@
+<section>
+    <p [style.font-size]="fontSize+'px'" [style.font-style]="fontStyle" [style.background-color]="backgroundColor" [style.color]="fontColor" >
+        {{message | uppercase}}
+    </p>
+
+    Enter the font size:
+    <input type="number" [(ngModel)]="fontSize">
+
+    Choose the font style
+    <select [(ngModel)]="fontStyle">
+        <option value="normal">Normal</option>
+        <option value="italic">Italics</option>
+    </select>
+
+    Choose background Colour
+    <select [(ngModel)]="backgroundColor">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="yellow">Yellow</option>    </select>
+
+    Choose Font Color 
+    <select [(ngModel)]="fontColor">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="yellow">Yellow</option>
+    </select>
+<br>
+<h3>    Enter Number get cube:</h3>
+    <input type="text" [ngModel]="no" (ngModelChange)="ResultCubeNo($event)">
+    <h4>Result is</h4>
+
+    <div><h3>    Enter Number to get facts:</h3>
+        <input type="number" [ngModel]="no" (ngModelChange)="ResultFacts($event)">
+        <h4>Result is {{result | snakeCase}}</h4>
+    </div>
+</section>

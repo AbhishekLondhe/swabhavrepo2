@@ -1,0 +1,16 @@
+<div style="text-align:center">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">My Spa App</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a [routerLink]='"home"'>Home</a></li>
+        <li><a [routerLink]='"about"'>About</a></li>
+        <li><a [routerLink]='"career"'>Career</a></li>
+        <li><a [routerLink]="['careerwithparams','101']">Career with params</a></li>
+      </ul>
+    </div>
+  </nav>    
+</div>  
+<router-outlet></router-outlet>

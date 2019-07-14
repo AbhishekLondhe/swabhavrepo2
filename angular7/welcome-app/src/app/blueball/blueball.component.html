@@ -1,0 +1,16 @@
+<section>
+    <div align="center">
+        <h1>BlueBall Game</h1> <br>
+        <div *ngIf="display"> <p style="margin-left: 40em; " align="left"> <strong> Rules:</strong> <br> 1.You have to recognize blueball.<br>2.You have only 5 attempts. <br>3.Redball
+            indicates value is lesser than blueball. <br>4.Greenball indicates value is Greater than blueball.</p> <br>
+            <button (click)='startTimer()' class="btn btn-success">Start Timer</button></div>
+            <p>{{timeLeft}} Seconds Left....</p>
+            <p>Remaining Attempts:{{count}}</p>
+
+        </div>
+
+        <input type="button" *ngFor="let item of fiftyArray(50); let i = index" value="{{i+1}}"
+            [style.background-color]="btnColor[i]" [style.color]="'white'" [style.width]="'125px'"
+            [style.height]="'125px'" [style.border-radius]="'50%'" [style.border-style]="'none'"
+            [style.font-size]="'50px'" (click)="btnClicked(i+1)" [disabled]="disableBtn">
+</section>

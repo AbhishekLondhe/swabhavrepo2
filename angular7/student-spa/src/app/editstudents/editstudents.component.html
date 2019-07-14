@@ -1,0 +1,69 @@
+<section>
+        <h4 style="text-align: center">ADD STUDENTS</h4>
+        <form class="form-inline" id="myform" #myform="ngForm" name="myform">
+                <div align="center"><br>
+                        <div>Roll no:<input id="srollNo" type="text" class="form-control" placeholder="Enter roll no"
+                                        [(ngModel)]="student.rollNo" name="srollNo" required #srollNo="ngModel">
+                                <span *ngIf="srollNo.invalid && (srollNo.dirty || srollNo.touched)"
+                                        class="alert alert-danger">
+                                        <span *ngIf="srollNo.errors.required">
+                                                Roll No is required.
+                                        </span>
+                                </span>
+                        </div>
+                        <div>Name: <input id="sname" type="text" class="form-control" placeholder="Enter name"
+                                        [(ngModel)]="student.name" name="sname" required #sname="ngModel">
+                                <span *ngIf="sname.invalid && (sname.dirty || sname.touched)"
+                                        class="alert alert-danger">
+                                        <span *ngIf="sname.errors.required">
+                                                Name is required.
+                                        </span>
+                                </span>
+                        </div>
+
+                        <div>Email:<input id="semail" type="text" class="form-control" placeholder="Enter email"
+                                        [(ngModel)]="student.email" name="semail" required #semail="ngModel">
+                                <span *ngIf="semail.invalid && (semail.dirty || semail.touched)"
+                                        class="alert alert-danger">
+                                        <span *ngIf="semail.errors.required">
+                                                Email is required.
+                                        </span>
+                                </span>
+                        </div>
+
+                        <div>Date: <input id="sdate" type="date" class="form-control" [(ngModel)]="student.date"
+                                        name="sdate" placeholder="Enter date" required #sdate="ngModel">
+                                <span *ngIf="sdate.invalid && (sdate.dirty || sdate.touched)"
+                                        class="alert alert-danger">
+                                        <span *ngIf="sdate.errors.required">
+                                                Date is required.
+                                        </span>
+                                </span>
+                        </div>
+
+                        <div>Age: <input id="sage" type="number" min=1 max=100 class="form-control" style=width:100px
+                                        [(ngModel)]="student.age" name="sage" required #sage="ngModel">
+                                <span *ngIf="sage.invalid && (sage.dirty || sage.touched)" class="alert alert-danger">
+                                        <span *ngIf="sage.errors.required">
+                                                Age is required.
+                                        </span>
+                                </span>
+                        </div>
+
+                        <div> Gender: <input type="radio" [(ngModel)]="gender" name="sgender" value="true" required
+                                        #sgender="ngModel">male
+                                <input type="radio" [(ngModel)]="gender" name="sgender" value="false" required
+                                        #sgender="ngModel">Female
+                                <span *ngIf="sgender.invalid && (sgender.dirty || sgender.touched)"
+                                        class="alert alert-danger">
+                                        <span *ngIf="sgender.errors.required">
+                                                Gender is required.
+                                        </span>
+                                </span>
+                        </div>
+
+                        <button class="btn btn-success" (click)="updateData()"
+                                [disabled]="myform.form.invalid">Update</button>
+                </div>
+        </form>
+</section>

@@ -1,0 +1,36 @@
+<section>
+    <div>
+        name is {{student.name}} <br>
+        cgpa is {{student.cgpa}} <br>
+        location is {{student.location}} <br>
+        profile pic <br> <img src="{{student.profilePic}}" alt=""> <br>
+    </div>
+
+
+    <div>
+        Property Syntax <br>
+        name is  {{student['name']}} <br>
+        cgpa  is {{student['cgpa']}} <br>
+        location is<p [innerHtml]='student.location'></p> <br>
+        profilePic is  <br> <img [src]="student.profilePic" alt="" [style.height]="imgHeight" [style.width]="imgWidth">
+    </div>
+    <div>
+        style binding Syntax <br>
+        cgpa is <p [innerHtml]='student.cgpa' [style.background-color]="convertCgpaToColor()" ></p>
+    </div>
+    <div>
+        <input type="button" (click)="loadCourse()" value="load Course">
+        <ul> 
+            <li *ngFor="let c of courses" >course Id : {{c.courseId}}  course Name : {{c.courseName}}</li>
+        </ul>
+    </div>
+    <div>
+        <h1>Two way boundary</h1>
+        {{student.name}}
+        <input type="text" [ngModel]="student.name" (ngModelChange)="nameChange($event)">
+
+        <h1>ngModel banana box</h1>
+        {{student.name}}
+        <input type="text" [(ngModel)]="student.name" >
+    </div>
+</section>

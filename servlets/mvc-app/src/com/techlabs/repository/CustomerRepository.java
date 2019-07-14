@@ -83,7 +83,6 @@ public class CustomerRepository {
 			}
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/swabhav?" + "user=root&password=root");
-//			String sql=;
 			PreparedStatement st = conn.prepareStatement("INSERT INTO CUSTOMERS (FIRSTNAME,LASTNAME,ID,DOB,BALANCE,CARDTYPE) VALUES(?,?,?,?,?,?)");
 			st.setString(1, firstname);
 			st.setString(2, lastname);

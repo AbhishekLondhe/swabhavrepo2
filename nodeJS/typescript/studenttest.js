@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var student_1 = require("./student");
+var c1 = new student_1.Student(101, "abc", "xyz");
+console.log(c1.Rollno);
+console.log(c1.FirstName);
+console.log(c1.LastName);
+var a1 = new student_1.Address("mumbai", "maharashtra");
+console.log(a1.City);
+console.log(a1.State);

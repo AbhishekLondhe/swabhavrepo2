@@ -103,3 +103,27 @@ INSERT INTO VENDOR VALUES (101,"DMART",500000);
 SELECT * FROM VENDOR;
 select * from customers;
 
+CREATE TABLE BANK_MASTER(
+NAME VARCHAR(20) PRIMARY KEY,
+PASSWORD VARCHAR(20),
+BALANCE DOUBLE
+)
+
+CREATE TABLE BANK_TRANSACTION(
+NAME VARCHAR(20),
+DATE DATE,
+TYPE VARCHAR(20),
+AMOUNT DOUBLE,
+CONSTRAINT TRANSACTION_FOREIGN_KEY FOREIGN KEY (NAME) REFERENCES BANK_MASTER (NAME)
+)
+
+drop table bank_master
+
+delete from bank_transaction where amount=2000;
+delete from bank_master where balance=2000;
+
+
+select * from bank_master
+select * from bank_transaction
+
+select * from candidate

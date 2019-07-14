@@ -1,0 +1,29 @@
+<style>
+    .container {
+        height: 100%;
+    }
+    .container .btn-holder {
+  justify-content: last baseline;
+  display: flex;
+}
+</style>
+<div class="container">
+    <div style="border:1px groove  rgb(17, 53, 160); border-radius: 5px;border-top-width: thin; height:75%">
+        <p class="bg-primary text-white" style="font-family:verdana;font-size:20px" align="left">
+            Products Details: {{ product.productName }}</p>
+
+        <p align="left">Name: {{product.productName }}<img src="{{product.imageUrl}}" width="200" height="200"
+                align="right"><br>
+            Code: {{product.productCode}}<br>
+            Description: {{product.description}}<br>
+            Availability: {{product.releaseDate}}<br>
+            Price: {{product.price}}<br>
+            Star rating:<star-rating [rating]="product.starRating"></star-rating><br></p>
+        <br>
+        <br><br><br>
+        <hr>
+        <div class="btn-holder">
+        &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-default glyphicon glyphicon-menu-left"
+            (click)="returnBack()">Back</button></div><br>
+    </div>
+</div>

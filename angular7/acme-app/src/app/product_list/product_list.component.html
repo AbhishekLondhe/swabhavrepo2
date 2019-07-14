@@ -1,0 +1,35 @@
+<style>
+    th {
+        text-align: center;
+    }
+</style>
+<div class="container">
+    Search: <input type="text" [(ngModel)]='search' name='search' placeholder="search product"/><br><br>
+    <div style="border:1px groove  rgb(17, 53, 160); border-radius: 5px;border-top-width: thin">
+        <p class="bg-primary text-white" style="font-family:verdana;font-size:20px" align="left">
+            Products List</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><button class="btn btn-primary" *ngIf="show" (click)="showImage()">Hide image</button>
+                        <button class="btn btn-primary" *ngIf="!show" (click)="showImage()">Show image</button></th>
+                    <th>Product Name</th>
+                    <th>Product code</th>
+                    <th>Release Date</th>
+                    <th>Price</th>
+                    <th>Star rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of products|filter : 'productName' : search">
+                    <td><img [src]="p.imageUrl" width="120" height="120" *ngIf="show"></td>
+                    <td ><a [routerLink]="['/product_details',p.productId]">{{p.productName}}</a></td>
+                    <td>{{p.productCode}}</td>
+                    <td>{{p.releaseDate}}</td>
+                    <td>{{p.price}}</td>
+                    <td><star-rating [rating]="p.starRating"></star-rating></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
